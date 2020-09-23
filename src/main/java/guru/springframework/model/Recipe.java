@@ -6,11 +6,9 @@ import java.util.Set;
 
 @Entity
 public class Recipe {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -18,26 +16,19 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
-
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
-
     @Lob
     private Byte[] image;
-
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredientSet;
 
-    public Set<Ingredient> getIngredientSet() {
-        return ingredientSet;
-    }
+    @ManyToMany
+    private Set<Category> categories;
 
-    public void setIngredientSet(Set<Ingredient> ingredientSet) {
-        this.ingredientSet = ingredientSet;
-    }
+
 
     public Integer getId() {
         return id;
@@ -111,6 +102,14 @@ public class Recipe {
         this.image = image;
     }
 
+    public Set<Ingredient> getIngredientSet() {
+        return ingredientSet;
+    }
+
+    public void setIngredientSet(Set<Ingredient> ingredientSet) {
+        this.ingredientSet = ingredientSet;
+    }
+
     public Notes getNotes() {
         return notes;
     }
@@ -118,6 +117,7 @@ public class Recipe {
     public void setNotes(Notes notes) {
         this.notes = notes;
     }
+
     public Difficulty getDifficulty() {
         return difficulty;
     }
