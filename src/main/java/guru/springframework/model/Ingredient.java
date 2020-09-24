@@ -26,14 +26,15 @@ public class Ingredient {
         this.amount = amount;
         this.unitOfMeasure = unitOfMeasure;
     }
-
+    /* Malzemenin hangi tarife ait olduğunu Recipe sınıfında addIngredient metodu ile belirlediğimiz için
+    //Bu Constructor'da Recipe nesnesini istememize gerek kalmadı yukardaki Constructor'u yazdık.
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
         this.description = description;
         this.amount = amount;
         this.unitOfMeasure = unitOfMeasure;
         this.recipe = recipe;
     }
-
+    */
     public Integer getId() {
         return id;
     }

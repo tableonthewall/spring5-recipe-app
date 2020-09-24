@@ -121,8 +121,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
         //tarife notu ekliyoruz
+        //Tarif sınıfımız içinde bulunan setNotes metodumuz hangi notun hangi tarife ait olduğunu otomatik olarak eklediği için,
+        //guacNotes nesnesine hangi tarife ait olduğunu belirten guacNotes.setRecipe("Recipe") metodunu kullanmamıza gerek yok.
         guacRecipe.setNotes(guacNotes);
-        guacNotes.setRecipe(guacRecipe);
+
         //Yemeğin malzemeleri
         guacRecipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), gram));
         guacRecipe.addIngredient(new Ingredient("Kosher salt", new BigDecimal(".5"), cayKasigi));
@@ -173,7 +175,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
 
         tacosRecipe.setNotes(tacoNotes);
-        tacoNotes.setRecipe(tacosRecipe);
 
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), yemekKasigi));
         tacosRecipe.addIngredient(new Ingredient("Dried Oregano", new BigDecimal(1), suBardagi));

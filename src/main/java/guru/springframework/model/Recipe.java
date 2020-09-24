@@ -1,7 +1,6 @@
 package guru.springframework.model;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -118,21 +117,16 @@ public class Recipe {
     public void setImage(Byte[] image) {
         this.image = image;
     }
-
-    public Set<Ingredient> getIngredientSet() {
-        return ingredientSet;
-    }
-
-    public void setIngredientSet(Set<Ingredient> ingredientSet) {
-        this.ingredientSet = ingredientSet;
-    }
-
+    //NOTLAR****NOTES
     public Notes getNotes() {
         return notes;
     }
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+        //Tarife notu eklediğimizde notun'da tarifle otomatik bağlantı kurmasını sağlamak için
+        //Nota tarifi ekliyoruz.
+        notes.setRecipe(this);
     }
 
     public Difficulty getDifficulty() {
@@ -143,9 +137,20 @@ public class Recipe {
         this.difficulty = difficulty;
     }
 
+    //MALZEMELER -- INGREDIENTS
+    //Malzemeleri tarife eklemek için bu metodu kullanıyoruz.
+    //Due to adding ingredients to recipe, we use this method.
     public Recipe addIngredient(Ingredient ingredient){
+        //malzemenin hangi tarifte kullanıldığını eklemek için referans olarak verilen malzemeye bu tarifi ekliyoruz.
         ingredient.setRecipe(this);
+        //ingredientSet bu sınıfta bulunan Set listesi, bu listeye tarifteki malzemeleri .add metodu ile ekliyoruz.
         this.ingredientSet.add(ingredient);
         return this;
+    }
+    public void setIngredientSet(Set<Ingredient> ingredientSet) {
+        this.ingredientSet = ingredientSet;
+    }
+    public Set<Ingredient> getIngredientSet() {
+        return ingredientSet;
     }
 }
