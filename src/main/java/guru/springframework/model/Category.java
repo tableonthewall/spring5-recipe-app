@@ -5,6 +5,10 @@ import java.util.Set;
 
 @Entity
 public class Category {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -12,7 +16,10 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     public Integer getId() {
         return id;
     }

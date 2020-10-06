@@ -32,6 +32,7 @@ public class Recipe {
     private Set<Ingredient> ingredientSet=new HashSet<>();
 
     @ManyToMany
+<<<<<<< Updated upstream
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
@@ -40,6 +41,15 @@ public class Recipe {
 
     public Set<Category> getCategories() {
         return categories;
+=======
+    @JoinTable(name="recipe_category",
+            joinColumns = @JoinColumn(name="recipe_id"),
+            inverseJoinColumns = @JoinColumn(name="category_id"))
+    private Set<Category> categories;
+
+    public Set<Ingredient> getIngredientSet() {
+        return ingredientSet;
+>>>>>>> Stashed changes
     }
 
     public void setCategories(Set<Category> categories) {
@@ -131,6 +141,13 @@ public class Recipe {
 
     public Difficulty getDifficulty() {
         return difficulty;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public void setDifficulty(Difficulty difficulty) {
