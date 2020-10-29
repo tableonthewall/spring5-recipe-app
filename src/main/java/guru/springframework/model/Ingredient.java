@@ -8,6 +8,7 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String description;
     private BigDecimal amount;
 
@@ -17,6 +18,7 @@ public class Ingredient {
 
     @ManyToOne
     private Recipe recipe;
+
     public Ingredient(){
 
     }

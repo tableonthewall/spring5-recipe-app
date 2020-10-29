@@ -9,6 +9,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -32,29 +33,10 @@ public class Recipe {
     private Set<Ingredient> ingredientSet=new HashSet<>();
 
     @ManyToMany
-<<<<<<< Updated upstream
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories=new HashSet<>();
-
-
-    public Set<Category> getCategories() {
-        return categories;
-=======
-    @JoinTable(name="recipe_category",
-            joinColumns = @JoinColumn(name="recipe_id"),
-            inverseJoinColumns = @JoinColumn(name="category_id"))
-    private Set<Category> categories;
-
-    public Set<Ingredient> getIngredientSet() {
-        return ingredientSet;
->>>>>>> Stashed changes
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
 
     public Integer getId() {
         return id;
@@ -120,6 +102,14 @@ public class Recipe {
         this.directions = directions;
     }
 
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public Byte[] getImage() {
         return image;
     }
@@ -127,47 +117,39 @@ public class Recipe {
     public void setImage(Byte[] image) {
         this.image = image;
     }
-    //NOTLAR****NOTES
+
     public Notes getNotes() {
         return notes;
     }
 
     public void setNotes(Notes notes) {
         this.notes = notes;
-        //Tarife notu eklediğimizde notun'da tarifle otomatik bağlantı kurmasını sağlamak için
-        //Nota tarifi ekliyoruz.
+        //Bu tarif oluşurken atanan notun recipe bölümüne otomatik olarak bu tarif bilgisinin girilmesi
         notes.setRecipe(this);
     }
 
-    public Difficulty getDifficulty() {
-        return difficulty;
+    public Set<Ingredient> getIngredientSet() {
+        return ingredientSet;
+    }
+
+    public void setIngredientSet(Set<Ingredient> ingredientSet) {
+        this.ingredientSet = ingredientSet;
     }
 
     public Set<Category> getCategories() {
         return categories;
     }
+
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    //MALZEMELER -- INGREDIENTS
-    //Malzemeleri tarife eklemek için bu metodu kullanıyoruz.
-    //Due to adding ingredients to recipe, we use this method.
+    //Bu tarife malzeme eklerken bu metodu kullanıyoruz.
     public Recipe addIngredient(Ingredient ingredient){
-        //malzemenin hangi tarifte kullanıldığını eklemek için referans olarak verilen malzemeye bu tarifi ekliyoruz.
         ingredient.setRecipe(this);
-        //ingredientSet bu sınıfta bulunan Set listesi, bu listeye tarifteki malzemeleri .add metodu ile ekliyoruz.
         this.ingredientSet.add(ingredient);
         return this;
     }
-    public void setIngredientSet(Set<Ingredient> ingredientSet) {
-        this.ingredientSet = ingredientSet;
-    }
-    public Set<Ingredient> getIngredientSet() {
-        return ingredientSet;
-    }
+
+
 }
