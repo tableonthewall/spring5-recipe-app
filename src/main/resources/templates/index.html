@@ -26,6 +26,7 @@
                                 <th>ID</th>
                                 <th>Yemek Adı</th>
                                 <th>Detay</th>
+                                <th>Sil</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -41,7 +42,8 @@
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/recipe/show/'+${recipe.id}}">Detay</a></td>
+                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}">Detay</a></td>
+                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/delete'}">Sil</a></td>
                             </tr>
                         </table>
                     </div>

@@ -11,6 +11,9 @@ public interface RecipeService {
     Set<Recipe> getRecipes();
     Recipe findById(Integer id);
 
+
+    void deleteById(Integer id);
+    RecipeCommand findCommandById(Integer id);
     //expanding recipeService
     RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
 }

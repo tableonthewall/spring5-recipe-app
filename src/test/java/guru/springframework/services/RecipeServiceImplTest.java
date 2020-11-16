@@ -63,4 +63,12 @@ public class RecipeServiceImplTest {
         verify(recipeRepository,never()).findAll();
 
     }
+
+    @Test
+    public void testDeleteById() throws Exception{
+        Integer idToDelete=Integer.valueOf(1);
+        recipeService.deleteById(idToDelete);
+
+        verify(recipeRepository,times(1)).deleteById(anyInt());
+    }
 }
