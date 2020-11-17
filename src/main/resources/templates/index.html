@@ -26,6 +26,7 @@
                                 <th>ID</th>
                                 <th>Yemek Adı</th>
                                 <th>Detay</th>
+                                <th>Güncelle</th>
                                 <th>Sil</th>
                             </tr>
                             </thead>
@@ -43,6 +44,7 @@
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
                                 <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}">Detay</a></td>
+                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/update'}">Güncelle</a></td>
                                 <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/delete'}">Sil</a></td>
                             </tr>
                         </table>

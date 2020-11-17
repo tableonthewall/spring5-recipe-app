@@ -22,6 +22,7 @@
                             <thead class="thead-inverse">
                                 <tr>
                                     <td>ID</td>
+                                    <td>Miktar</td>
                                     <td>Detay Bilgisi</td>
                                 </tr>
                             </thead>
@@ -34,7 +35,8 @@
                             </tr>
                             <tr>
                                 <td th:text="${ingredient.id}">334</td>
-                                <td th:text="${ingredient.amount}+' '+${ingredient.unitOfMeasure.getDescription()}+' '+${ingredient.description}">Tasty Goodness3</td>
+                                <td th:text="${ingredient.amount}+' '+${ingredient.unitOfMeasure.getDescription()}">Tasty Goodness3</td>
+                                <td th:text="${ingredient.description}">sdkas</td>
                             </tr>
                         </table>
                     </div>

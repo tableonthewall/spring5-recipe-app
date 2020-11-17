@@ -15,10 +15,10 @@
 
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-10 ">
+                        <div class="col-md-11">
                             <h1 class="panel-title">Ingredients</h1>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">New</a>
                         </div>
                     </div>
@@ -32,9 +32,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Description</th>
-                                <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>Detay</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -54,9 +54,9 @@
                             <tr th:each="ingredient : ${recipe.ingredientSet}">
                                 <td th:text="${ingredient.id}">334</td>
                                 <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.getDescription()} + ' ' + ${ingredient.description}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">View</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">Detay</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Güncelle</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Sil</a></td>
                             </tr>
                         </table>
                     </div>
