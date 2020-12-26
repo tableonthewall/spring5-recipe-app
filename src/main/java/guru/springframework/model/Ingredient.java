@@ -13,6 +13,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     private String description;
     private BigDecimal amount;
 

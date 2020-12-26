@@ -7,9 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jws.WebParam;
+import javax.validation.Valid;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
@@ -26,7 +28,11 @@ public class RecipeController {
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
-
+        try {
+            Integer newID=Integer.parseInt(id);
+        }catch(NumberFormatException e){
+            throw new NumberFormatException("Girilen ifade sayı değildir :"+id);
+        }
         model.addAttribute(recipeService.findById(new Integer(id)));
         return "/recipe/show";
     }
@@ -42,7 +48,14 @@ public class RecipeController {
 
     //Update'den ya da new'den gelen Post metodunu karşılıyor. Nesneyi kaydedip show sayfasına yönlendiriyor.
     @PostMapping("recipe")
-    public String saveOrUpdate( RecipeCommand command){
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+            return "recipe/recipeform";
+        }
         RecipeCommand savedCommand=recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipe/"+savedCommand.getId()+"/show";
@@ -73,15 +86,7 @@ public class RecipeController {
         return "404error";
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public String handNumberFormatException(Model model,Exception exception){
-        log.error("Handling number format exception");
-        log.error(exception.getMessage());
 
-        model.addAttribute("message",exception.getMessage());
-        return "400error";
-    }
 
 
 }
