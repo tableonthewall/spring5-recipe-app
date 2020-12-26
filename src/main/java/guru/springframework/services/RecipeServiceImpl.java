@@ -3,6 +3,7 @@ package guru.springframework.services;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converts.RecipeCommandToRecipe;
 import guru.springframework.converts.RecipeToRecipeCommand;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.model.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -39,10 +40,11 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Integer id) {
+
         Optional<Recipe> recipeOptional=recipeRepository.findById(id);
 
         if(!recipeOptional.isPresent()){
-            throw new RuntimeException("Tarif bulunamadı..");
+            throw new NotFoundException("Tarif bulunamadı.. "+id.toString());
         }
         return recipeOptional.get();
     }

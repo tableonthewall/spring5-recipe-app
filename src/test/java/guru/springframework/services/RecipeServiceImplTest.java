@@ -2,6 +2,7 @@ package guru.springframework.services;
 
 import guru.springframework.converts.RecipeCommandToRecipe;
 import guru.springframework.converts.RecipeToRecipeCommand;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.model.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
@@ -35,6 +36,13 @@ public class RecipeServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         recipeService=new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception{
+        Optional<Recipe> recipeOptional=Optional.empty();
+        when(recipeRepository.findById(anyInt())).thenReturn(recipeOptional);
+        Recipe recipeReturned=recipeService.findById(0);
     }
 
     @Test

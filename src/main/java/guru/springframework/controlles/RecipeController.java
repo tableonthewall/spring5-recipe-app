@@ -1,8 +1,10 @@
 package guru.springframework.controlles;
 
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,10 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
+
         model.addAttribute(recipeService.findById(new Integer(id)));
         return "/recipe/show";
     }
@@ -38,7 +42,7 @@ public class RecipeController {
 
     //Update'den ya da new'den gelen Post metodunu karşılıyor. Nesneyi kaydedip show sayfasına yönlendiriyor.
     @PostMapping("recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command){
+    public String saveOrUpdate( RecipeCommand command){
         RecipeCommand savedCommand=recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipe/"+savedCommand.getId()+"/show";
@@ -58,6 +62,25 @@ public class RecipeController {
     public String deleteById(@PathVariable String id){
         recipeService.deleteById(Integer.valueOf(id));
         return "redirect:/";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public String handleNotFound(Model model,Exception exception){
+        log.error("Handling not found exception");
+        log.error(exception.getMessage());
+        model.addAttribute("message",exception.getMessage());
+        return "404error";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public String handNumberFormatException(Model model,Exception exception){
+        log.error("Handling number format exception");
+        log.error(exception.getMessage());
+
+        model.addAttribute("message",exception.getMessage());
+        return "400error";
     }
 
 

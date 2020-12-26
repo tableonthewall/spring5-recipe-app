@@ -25,20 +25,24 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         final Ingredient ingredient=new Ingredient();
 
         ingredient.setId(ingredientCommand.getId());
+        System.out.println(ingredient.getId());
 
         //ingredientCommand ile gelen recipe bilgilerini ingredient olarak dönüştürme işlemi
         if(ingredientCommand.getRecipeId()!=null){
             Recipe recipe=new Recipe();
             recipe.setId(ingredientCommand.getRecipeId());
+            System.out.println("dönüştürme sonrası id1: "+ingredient.getId());
             ingredient.setRecipe(recipe);
+            System.out.println("dönüştürme sonrası id2: "+ingredient.getId());
             recipe.addIngredient(ingredient);
+            System.out.println("dönüştürme sonrası id3: "+ingredient.getId());
         }
 
         ingredient.setAmount(ingredientCommand.getAmount());
         ingredient.setDescription(ingredientCommand.getDescription());
         ingredient.setUnitOfMeasure(uomConverter.convert(ingredientCommand.getUnitOfMeasure()));
 
-
+        System.out.println("dönüştürme sonrası id4: "+ingredient.getId());
         return ingredient;
     }
 }

@@ -90,16 +90,18 @@ public class IngredientServiceImpl implements IngredientService {
                 //ingredient varsa yukarda onu güncelledik eğer yoksa tarife ekliyoruz.
                 //Tarife-> IngredientCommand'ı Ingredient olarak convert edip Tarife ekliyoruz.
                 recipe.addIngredient(ingredientCommandToIngredient.convert(ingredientCommand));
+                System.out.println("kaydetme sirasinda gelen id "+ingredientCommand.getId());
             }
             //Tarifi recipeRepository yardımıyla kaydediyoruz.
             Recipe savedRecipe=recipeRepository.save(recipe);
+            System.out.println("kaydetme sirasinda gelen id 2"+ingredientCommand.getId());
             //kaydettiğimiz savedRecipe içerisinden OptionalSavedIngredient olarak Ingredient nesnemizi buluyoruz.
             Optional<Ingredient> optionalSavedIngredient=savedRecipe
                     .getIngredientSet()
                     .stream()
                     .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
                     .findFirst();
-
+            System.out.println("kaydetme sirasinda gelen id 3"+ingredientCommand.getId());
             //eğer optionalSavedIngredient elemanı Recipe içinde bulunamamışsa değerleri kendimiz ingredientCommandla eşleştiriyoruz.
             if(!optionalSavedIngredient.isPresent()){
                 optionalSavedIngredient=savedRecipe.getIngredientSet().stream()
